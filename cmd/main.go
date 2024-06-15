@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/dhanifu/dadjokes/config"
 	"github.com/dhanifu/dadjokes/handler"
 	"github.com/dhanifu/dadjokes/routes"
@@ -18,5 +16,5 @@ func main() {
 
 	app.Route("", routes.InitRouter(handler, config).Route)
 
-	app.Listen(fmt.Sprintf(":%s", config.AppPort))
+	app.Listen("0.0.0.0:3000")
 }
