@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"github.com/dhanifu/dadjokes/config"
+	"github.com/dhanifu/dadjokes/data"
 	"github.com/dhanifu/dadjokes/handler"
 	"github.com/dhanifu/dadjokes/routes"
 	"github.com/gofiber/fiber/v2"
@@ -15,6 +16,7 @@ func main() {
 
 	app := fiber.New()
 
+	data.InitData(config)
 	handler := handler.InitHandlers(config)
 
 	app.Route("", routes.InitRouter(handler, config).Route)

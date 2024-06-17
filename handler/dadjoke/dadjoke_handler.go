@@ -9,12 +9,15 @@ import (
 	"time"
 
 	"github.com/dhanifu/dadjokes/config"
+	"github.com/dhanifu/dadjokes/data"
+	"github.com/dhanifu/dadjokes/helper"
 	"github.com/dhanifu/dadjokes/models"
 	"github.com/gofiber/fiber/v2"
 )
 
 type DadJokeHandler interface {
 	GetDadRandomJokes(c *fiber.Ctx) error
+	GetRandomDadJokes(c *fiber.Ctx) error
 }
 
 type handler struct {
@@ -61,4 +64,16 @@ func (h handler) GetDadRandomJokes(c *fiber.Ctx) error {
 	}
 
 	return c.JSON(dadJokeResponse)
+}
+
+func (h handler) GetRandomDadJokes(c *fiber.Ctx) error {
+	r := rand.New(rand.NewSource(time.Now().UnixNano()))
+
+	data := data.GetDadJokesData()
+	randomIndex := r.Intn(len(data.Jokes))
+	selectedJoke := data.Jokes[randomIndex]
+
+	return helper.ResponseSuccess(c, map[string] string {
+		"joke": selectedJoke,
+	})
 }

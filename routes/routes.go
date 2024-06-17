@@ -26,6 +26,8 @@ func (r router) Route(router fiber.Router) {
 	})
 
 	v1 := router.Group("v1")
+	v2 := router.Group("v2")
 
 	r.DadJokeRouter(v1.Group("dadjokes"))
+	r.DadJokeRouterV2(v2.Group("dadjokes"))
 }
